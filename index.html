@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Duelo</title>
+
+    <!--estilos-->
+    <!--bootstrap-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+
+    <!--js-->
+    <!--jquery-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+
+    <!--bootstrap js-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-pQQkAEnwaBkjpqZ8RU1fF1AKtTcHJwFl3pblpTlHXybJjHpMYo79HY3hIi4NKxyj" crossorigin="anonymous"></script>
+
+    <!--estilos-->
+    <style>
+
+    </style>
+
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Navbar</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Link</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Dropdown
+                </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="#">Action</a></li>
+                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                    </li>
+                </ul>
+                <form class="d-flex">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+
+
+
+
+
+
+    </div>
+
+
+
+
+
+    <script>
+        class Card {
+            constructor(name, cost) {
+                this.name = name;
+                this.cost = cost;
+            }
+        }
+
+        class Unit extends Card {
+            constructor(name, cost, power, res) {
+                    super(name, cost);
+                    this.power = power;
+                    this.res = res;
+                }
+                // método
+            attack(target) {
+                if (!target instanceof Unit) {
+                    console.log('objetivo no válido');
+                    return;
+                }
+                target.res -= this.power;
+
+                if (target.res <= 0) {
+                    console.log(target.name + ' unidad eliminada');
+                }
+            }
+        }
+
+        class Effect extends Card {
+            constructor(name, cost, text, stat, magnitude) {
+                    super(name, cost)
+                    this.text = text;
+                    this.stat = stat;
+                    this.magnitude = magnitude;
+                }
+                // método
+            affect(unit) {
+                if (this.stat == 'resilience') {
+                    unit.res = unit.res + this.magnitude;
+                    //console.log("resiliencia modificada");
+                } else {
+                    unit.power += this.magnitude;
+                }
+            }
+
+        }
+
+        // instancias
+
+
+
+        console.log('El jugador 1 convoca a "Ninja Cinturón Rojo"');
+        const ninja_rojo = new Unit('Ninja Cinturón Rojo', 3, 3, 4);
+        //pausa
+        debugger;
+
+        console.log('El jugador 1 juega "Algoritmo duro" en "Ninja Cinturón Rojo"');
+        const algoritmo = new Effect('Algoritmo Difícil', 2, 'aumentar la resilencia del objetivo en 3', 'resilience', 3);
+        algoritmo.affect(ninja_rojo);
+        //pausa
+        debugger;
+
+        console.log('El jugador 2 convoca a "Ninja Cinturón Negro"');
+        const ninja_negro = new Unit('Ninja Cinturón Negro', 4, 5, 4);
+        //pausa
+        debugger;
+
+        console.log('El jugador 2 juega "Rechazo de promesa no controlada" en "Ninja Cinturón Rojo"');
+        const promesa = new Effect('Rechazo de Promesa  no Manejado', 1, 'reducir la resilencia del objetivo en 2', 'resilience', -2);
+        promesa.affect(ninja_rojo);
+        //pausa
+        debugger;
+
+        console.log('El jugador 1 juega "Programación en pareja" en "Ninja Cinturón Rojo"');
+        const programacion = new Effect('Programación en Pareja', 3, 'aumentar el poder del objetivo en 2', 'poder', 2);
+        programacion.affect(ninja_rojo);
+        //pausa
+        debugger;
+
+        console.log('El jugador 1 tiene el ataque "Ninja Cinturón Rojo" "Ninja Cinturón Negro"');
+        ninja_rojo.attack(ninja_negro);
+        //pausa
+        debugger;
+    </script>
+</body>
+
+</html>
